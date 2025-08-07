@@ -1,6 +1,48 @@
-# Godot 4+ specific ignores
+# === Godot Engine ===
+.import/
 .godot/
-export.cfg
+
+# Export preset & builds (nếu bạn muốn tự tạo lại)
 export_presets.cfg
+
+# Mono (C#)
+.mono/
+data_*/         # C# build output
+mono_crash.*
+
+# User-specific editor settings
+godot.editor_settings-*
+
+# OS-specific files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Backup files
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+
+# Swap files
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# VSCode / JetBrains IDEs
+.vscode/
+.idea/
+
+# Build output (nếu bạn export ra đây)
+build/
+bin/
+dist/
+export/
+
+# Optional: ignore ZIPs or APKs
+*.zip
+*.apk
+*.pck
