@@ -11,6 +11,8 @@ anchor_mode = 0
 
 [node name="player" parent="." instance=ExtResource("1_4nm3i")]
 position = Vector2(478, 313)
+_speed = 200.0
+_dashSpeed = 500.0
 
 [node name="Spawner" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("2_lr5ic")]
 _player = NodePath("../player")

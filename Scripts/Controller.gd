@@ -13,7 +13,8 @@ var dash_time_left := 0.0
 var dash_cooldown_left := 0.0
 var dash_direction := Vector2.ZERO
 
-
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+var last_facing_dir := Vector2.UP
 func _ready():
 	gravity_scale = _Gravity;
 	pass # Replace with function body.
@@ -50,3 +51,36 @@ func _process(delta):
 		direction = direction.normalized()
 
 	position += direction * _speed * delta;
+	
+	_update_animation(direction)
+func _update_animation(direction: Vector2):
+	if is_dashing:
+		if abs(dash_direction.x) > abs(dash_direction.y):
+			anim.flip_h = dash_direction.x < 0
+			anim.play("walk side")
+		elif dash_direction.y < 0:
+			anim.play("walk forward")
+		else:
+			anim.play("walk back")
+	else:
+		if direction == Vector2.ZERO:
+			# Đứng yên
+			if abs(last_facing_dir.x) > abs(last_facing_dir.y):
+				anim.flip_h = last_facing_dir.x < 0
+				anim.play("stand side")
+			elif last_facing_dir.y < 0:
+				anim.play("stand back")
+			else:
+				anim.play("stand forward")
+		else:
+			# Đi bộ
+			if abs(direction.x) > abs(direction.y):
+				anim.flip_h = direction.x < 0
+				anim.play("walk side")
+				last_facing_dir = Vector2(sign(direction.x), 0)
+			elif direction.y < 0:
+				last_facing_dir = Vector2(0, 1)
+				anim.play("walk forward")
+			else:
+				last_facing_dir = Vector2(0, -1)
+				anim.play("walk back")
