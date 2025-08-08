@@ -14,3 +14,11 @@ texture = ExtResource("1_iesnd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(6.36, 6.52)
 shape = SubResource("RectangleShape2D_vyie2")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -108.0
+offset_right = 25.0
+offset_bottom = -85.0
+text = "Player
+"
