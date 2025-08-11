@@ -1,7 +1,28 @@
-[gd_scene format=3 uid="uid://bjoqneqwqoq4d"]
+[gd_scene load_steps=4 format=3 uid="uid://bjoqneqwqoq4d"]
+
+[ext_resource type="Script" path="res://Scripts/boom.gd" id="1_n5fcc"]
+[ext_resource type="Texture2D" uid="uid://dq4nxh4ae50g8" path="res://icon.svg" id="2_1n3hh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0knpb"]
+radius = 25.0
 
 [node name="bom" type="Area2D"]
+script = ExtResource("1_n5fcc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4, 4)
+shape = SubResource("CircleShape2D_0knpb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1n3hh")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 25.0
+offset_bottom = -37.0
+text = "boom
+"
