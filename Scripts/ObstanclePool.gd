@@ -5,6 +5,7 @@ class_name ObstanclePool
 
 const OBSTACLE_TYPES = {
 	"straight": preload("res://Scenes/Straight.tscn"),
+	"rocket": preload("res://Scenes/rocket.tscn")
 }
 
 var pools: Dictionary = {}

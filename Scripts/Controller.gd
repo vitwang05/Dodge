@@ -2,14 +2,14 @@ extends RigidBody2D
 
 var _Gravity = 0;
 @export var _speed:float = 500.0;
-
+@export var stats:PlayerStats;
 @export var _dashSpeed:float = 800.0;
 @export var _dashDuration := 0.2;
 @export var _dashCooldown := 0.5;
 # Called when the node enters the scene tree for the first time.
 
 var is_dashing := false
-var dash_time_left := 0.0
+var dash_time_left := 0.0	
 var dash_cooldown_left := 0.0
 var dash_direction := Vector2.ZERO
 
@@ -19,6 +19,11 @@ func _ready():
 	gravity_scale = _Gravity;
 	pass # Replace with function body.
 
+func take_damage(damage: int):
+	stats.take_damage(damage)
+	print(stats.current_health)
+	if stats.is_dead():
+		print("game over")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
