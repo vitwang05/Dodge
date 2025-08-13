@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerConfig" load_steps=2 format=3 uid="uid://fg7byp81kf41"]
+
+[ext_resource type="Script" path="res://Scripts/Player/PlayerConfig.gd" id="1_exhq6"]
+
+[resource]
+script = ExtResource("1_exhq6")
+_speed = 500.0
+_dashSpeed = 800.0
+_dashDuration = 0.2
+_dashCooldown = 0.5

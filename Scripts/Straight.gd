@@ -15,8 +15,10 @@ func _ready():
 
 func _on_body_entered(body: Node):
 	if(body.name == "player"):
-		if(body.has_method("take_damage")):
-			body.take_damage(10)
+		var dist = global_position.distance_to(body.global_position)
+		if dist < 120:
+			if(body.has_method("take_damage")):
+				body.take_damage(10)
 
 
 func _return_to_pool():

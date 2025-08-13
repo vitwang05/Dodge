@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://tuh7ik5yo585"]
+[gd_scene load_steps=6 format=3 uid="uid://tuh7ik5yo585"]
 
 [ext_resource type="PackedScene" uid="uid://dgxg4lsrevxya" path="res://Scenes/player.tscn" id="1_4nm3i"]
 [ext_resource type="PackedScene" uid="uid://x5t3rcc6uxi" path="res://Scenes/spawner.tscn" id="2_lr5ic"]
 [ext_resource type="PackedScene" uid="uid://dd5fw8wpag57k" path="res://Scenes/pool.tscn" id="3_llde8"]
 [ext_resource type="PackedScene" uid="uid://bjoqneqwqoq4d" path="res://Scenes/bom.tscn" id="4_ytbkp"]
+[ext_resource type="Script" path="res://Scripts/mapStateManager.gd" id="5_7h4af"]
 
 [node name="Map" type="Node2D"]
 
@@ -12,8 +13,6 @@ anchor_mode = 0
 
 [node name="player" parent="." instance=ExtResource("1_4nm3i")]
 position = Vector2(478, 313)
-_speed = 200.0
-_dashSpeed = 500.0
 
 [node name="Spawner" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("2_lr5ic")]
 _player = NodePath("../player")
@@ -23,3 +22,7 @@ obstancle_pool = NodePath("../Pool")
 
 [node name="bom" parent="." instance=ExtResource("4_ytbkp")]
 position = Vector2(814, 304)
+
+[node name="MapStateManager" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("5_7h4af")
+player = NodePath("../player")

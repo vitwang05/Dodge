@@ -1,34 +1,25 @@
-extends RigidBody2D
+extends Node
 
-var _Gravity = 0;
-@export var _speed:float = 500.0;
-@export var stats:PlayerStats;
-@export var _dashSpeed:float = 800.0;
-@export var _dashDuration := 0.2;
-@export var _dashCooldown := 0.5;
-# Called when the node enters the scene tree for the first time.
-
+var player: RigidBody2D
+var config
 var is_dashing := false
-var dash_time_left := 0.0	
+var dash_time_left := 0.0
 var dash_cooldown_left := 0.0
 var dash_direction := Vector2.ZERO
-
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 var last_facing_dir := Vector2.UP
+
+@onready var anim: AnimatedSprite2D = player.get_node("AnimatedSprite2D")
+
+
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	gravity_scale = _Gravity;
-	pass # Replace with function body.
+	player.gravity_scale = 0 
 
-func take_damage(damage: int):
-	stats.take_damage(damage)
-	print(stats.current_health)
-	if stats.is_dead():
-		print("game over")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	var direction = Vector2.ZERO
-	if(!is_dashing):
+
+	if not is_dashing:
 		if Input.is_action_pressed("move_right"):
 			direction.x += 1
 		if Input.is_action_pressed("move_left"):
@@ -37,27 +28,28 @@ func _process(delta):
 			direction.y += 1
 		if Input.is_action_pressed("move_up"):
 			direction.y -= 1
-	
+
 	if dash_cooldown_left > 0:
 		dash_cooldown_left -= delta
+
 	if is_dashing:
 		dash_time_left -= delta
-		position += dash_direction * _dashSpeed * delta
+		player.position += dash_direction * config.dash_speed * delta
 		if dash_time_left <= 0:
 			is_dashing = false
-			dash_cooldown_left = _dashCooldown
-			
+			dash_cooldown_left = config.dash_cooldown
+
 	if Input.is_action_just_pressed("dash") and not is_dashing and dash_cooldown_left <= 0:
 		is_dashing = true
 		dash_direction = direction if direction != Vector2.ZERO else Vector2.RIGHT
-		dash_time_left = _dashDuration
-	# Chuẩn hóa hướng để tốc độ không vượt mức khi đi chéo
+		dash_time_left = config.dash_duration
+
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
 
-	position += direction * _speed * delta;
-	
+	player.position += direction * config.speed * delta
 	_update_animation(direction)
+
 func _update_animation(direction: Vector2):
 	if is_dashing:
 		if abs(dash_direction.x) > abs(dash_direction.y):
@@ -69,7 +61,6 @@ func _update_animation(direction: Vector2):
 			anim.play("walk back")
 	else:
 		if direction == Vector2.ZERO:
-			# Đứng yên
 			if abs(last_facing_dir.x) > abs(last_facing_dir.y):
 				anim.flip_h = last_facing_dir.x < 0
 				anim.play("stand side")
@@ -78,7 +69,6 @@ func _update_animation(direction: Vector2):
 			else:
 				anim.play("stand forward")
 		else:
-			# Đi bộ
 			if abs(direction.x) > abs(direction.y):
 				anim.flip_h = direction.x < 0
 				anim.play("walk side")
