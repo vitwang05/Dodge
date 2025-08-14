@@ -22,4 +22,5 @@ func change_map(map_type: String):
 		"sidescroll":
 			player.config_resource = load("res://Resource/player_config_sidescroll.tres")
 			player.set_controller("res://Scripts/Player/player_sidescroll.gd")
+	
 

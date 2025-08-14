@@ -18,6 +18,9 @@ func take_damage(damage: int):
 		print("game over")
 
 func set_controller(controller_script_path: String):
+	var old_pos = position
+	var old_vel = linear_velocity
+	
 	# Xóa controller cũ
 	if controller and controller.get_parent() == self:
 		remove_child(controller)
@@ -29,5 +32,10 @@ func set_controller(controller_script_path: String):
 	new_controller.config = config_resource
 	add_child(new_controller)
 	controller = new_controller
+	
+	# Khôi phục vị trí và velocity
+	position = old_pos
+	linear_velocity = old_vel
+
 
 
